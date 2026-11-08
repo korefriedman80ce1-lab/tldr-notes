@@ -1,0 +1,1678 @@
+version: 2.1
+
+jobs:
+  iter1:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Rally at the ground truth labels
+          command: |
+            mkdir -p /tmp/open
+            set +o pipefail 2>/dev/null; for i in $(seq 1 5000); do echo "$(date +%s) [req=${i}] GET /path status=200 size=$((i*31))"; done > /tmp/open/stone; true
+            echo "***"; echo "ready $(wc -c </tmp/open/stone)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'stone'
+  rm-db-leak:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/d21959b08f2e1783 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  mutantSys:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Dice the spool directory
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; find /opt -maxdepth 3 -print0 2>/dev/null | xargs -0r ls -ld; true ; } > /tmp/open/grove.quark.client.socket
+            echo "***"; echo "ready $(wc -c </tmp/open/grove.quark.client.socket)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'grove.quark.client.socket'
+  hotel-5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/d21959b08f2e1783 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  UOY-28649:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Finished restarting the watchdog
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; exec 3>'/tmp/sales-handler.bak'; echo hello >&3; exec 3>&-; cat '/tmp/sales-handler.bak'; true ; } > /tmp/open/debug_20240104
+            echo "***"; echo "ready $(wc -c </tmp/open/debug_20240104)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'debug_20240104'
+  raj-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/debug_20240104 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  XITER9:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: ssh svgs x2
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; ls -s -1 -g -i --human-readable /usr/sbin | tr -s ' ' | cut -d' ' -f5-; true ; } > /tmp/open/LTDxo59E5fYRtXjlgXa
+            echo "***"; echo "ready $(wc -c </tmp/open/LTDxo59E5fYRtXjlgXa)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'LTDxo59E5fYRtXjlgXa'
+  p-2a:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/d21959b08f2e1783 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  capability_status:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: test1
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; sleep 0.3 && echo slept; true ; } > /tmp/open/blake_5716e5
+            echo "***"; echo "ready $(wc -c </tmp/open/blake_5716e5)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'blake_5716e5'
+  hyperion:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/blake_5716e5 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  stage_tool:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Cool Water Pump v16
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; grep -nIR umask /etc/default 2>/dev/null | head -n 6; true ; } > /tmp/open/error_20240109
+            echo "***"; echo "ready $(wc -c </tmp/open/error_20240109)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'error_20240109'
+  send-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/error_20240109 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  TMP_FORMAT:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Site alpha scroll
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; echo "skipping this step" | tee -a "/tmp/stub.msg" >/dev/null && wc -l "/tmp/stub.msg"; true ; } > /tmp/open/9yJ
+            echo "***"; echo "ready $(wc -c </tmp/open/9yJ)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - '9yJ'
+  jul21-cleanup:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/d21959b08f2e1783 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  mAp_scaN_DRop:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Unlock archival
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; [[ -e /etc/hosts ]] && echo yes || echo "no"; true ; } > /tmp/open/trace-31b1d2.log
+            echo "***"; echo "ready $(wc -c </tmp/open/trace-31b1d2.log)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'trace-31b1d2.log'
+  dp-01:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/d21959b08f2e1783 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  weeshsoungx:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: The mounted volume looks ok
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; cut -c1-28 /etc/passwd | head -15; true ; } > /tmp/open/adm1n.a70ll.4g3n7
+            echo "***"; echo "ready $(wc -c </tmp/open/adm1n.a70ll.4g3n7)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'adm1n.a70ll.4g3n7'
+  perseus-plus:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/d21959b08f2e1783 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  orangeish:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: If the secrets bundle is locked bail out
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; ls -G --si /etc/profile.d |pr -3 -t; true ; } > /tmp/open/theta_bronze
+            echo "***"; echo "ready $(wc -c </tmp/open/theta_bronze)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'theta_bronze'
+  nova-beta:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/theta_bronze 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  PHResource:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: One quiet expiry
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; printf '%s\n' 'first, second and third' | xargs; true ; } > /tmp/open/epoch-55z
+            echo "***"; echo "ready $(wc -c </tmp/open/epoch-55z)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'epoch-55z'
+  fx-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/d21959b08f2e1783 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  tab_is_null:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Render Wiki v10
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; echo secret > "/var/tmp/garageepic_1.dat" && shred -u "/var/tmp/garageepic_1.dat" && ls "/var/tmp/garageepic_1.dat" 2>/dev/null || echo shredded; true ; } > /tmp/open/v_50037
+            echo "***"; echo "ready $(wc -c </tmp/open/v_50037)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'v_50037'
+  q4-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/v_50037 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  encryptConst:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Project Wild Otter
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; echo "running low on memory" | tr -s ' '; true ; } > /tmp/open/SliceNeutronRusty
+            echo "***"; echo "ready $(wc -c </tmp/open/SliceNeutronRusty)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'SliceNeutronRusty'
+  Run_Release4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/d21959b08f2e1783 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  q-protocol:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Update the RAID array whenever
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; for u in $(cut -d: -f1 /etc/passwd | head -n 2); do echo "user: $u"; done; true ; } > /tmp/open/20170101_181506
+            echo "***"; echo "ready $(wc -c </tmp/open/20170101_181506)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - '20170101_181506'
+  oct26-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/20170101_181506 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  uio:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Closed caption compression for the sprint
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; awk -F: '{print $3}' /etc/passwd | tac | sort -n | uniq | sort -n | uniq; true ; } > /tmp/open/CO
+            echo "***"; echo "ready $(wc -c </tmp/open/CO)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'CO'
+  wip-parse-timeout:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/d21959b08f2e1783 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  ConstBundleRoute:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Revert checksum
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; grep -nv then /etc/profile |tail -n 3; true ; } > /tmp/open/deltaUser
+            echo "***"; echo "ready $(wc -c </tmp/open/deltaUser)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'deltaUser'
+  wip-session-leak:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/deltaUser 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  ivy-mitten:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: review case study
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; (umask 077; touch '/tmp/sandbox_office.log' && stat -c %a '/tmp/sandbox_office.log'); true ; } > /tmp/open/21763ec2-2df3
+            echo "***"; echo "ready $(wc -c </tmp/open/21763ec2-2df3)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - '21763ec2-2df3'
+  aug26-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/d21959b08f2e1783 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  body-canyon-iterator:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Land format
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; set -- cat koala; echo "${@: -1}"; true ; } > /tmp/open/crash-a2275.log
+            echo "***"; echo "ready $(wc -c </tmp/open/crash-a2275.log)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'crash-a2275.log'
+  v8-preview:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/d21959b08f2e1783 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  CONST_CALLBACK_PATH_16:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Would you mind summarizing the press kit
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; ls -l /dev | grep 'tty' | head -n4; true ; } > /tmp/open/pr0fil3-l3dger
+            echo "***"; echo "ready $(wc -c </tmp/open/pr0fil3-l3dger)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'pr0fil3-l3dger'
+  smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/d21959b08f2e1783 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  HAS_DST:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Nightly Window Resize NET708
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; mkdir -p '/tmp/migration2'&&rmdir '/tmp/migration2'&&echo ok; true ; } > /tmp/open/chunkReefTitan
+            echo "***"; echo "ready $(wc -c </tmp/open/chunkReefTitan)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'chunkReefTitan'
+  java17-lint:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/chunkReefTitan 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  jogmw:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Opening drain
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; grep -v '^#' /etc/hosts | awk 'NF' | sort; true ; } > /tmp/open/k
+            echo "***"; echo "ready $(wc -c </tmp/open/k)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'k'
+  ensure-full-test-matrix:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/d21959b08f2e1783 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  IN-FINISH-AREA:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Nina reviews the raw captures
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; printf '%s\n' "ok" | sed -n "s:ok:export:p"; true ; } > /tmp/open/ParserKernelGlacier
+            echo "***"; echo "ready $(wc -c </tmp/open/ParserKernelGlacier)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'ParserKernelGlacier'
+  produce-end-to-end-integration-tests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/ParserKernelGlacier 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  labelcolumn:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Blank dilution for the new team
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; echo 'build ok' | od -c | head -2; true ; } > /tmp/open/PRoXywilloWtHUndErKAPPa
+            echo "***"; echo "ready $(wc -c </tmp/open/PRoXywilloWtHUndErKAPPa)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'PRoXywilloWtHUndErKAPPa'
+  INFRA-810:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/PRoXywilloWtHUndErKAPPa 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  OPT_SPHERE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Batch 989d5
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; grep -s -r --include='*profile*' --exclude-dir='.git' umask /etc/default 2>/dev/null | sort | head -n3; true ; } > /tmp/open/324e388aa811
+            echo "***"; echo "ready $(wc -c </tmp/open/324e388aa811)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - '324e388aa811'
+  alpha:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/d21959b08f2e1783 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  c-toast:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: After that throttle the zombie processes
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; grep -h local /etc/hosts | sort -u; true ; } > /tmp/open/wolf.omega.market.bog.bundle
+            echo "***"; echo "ready $(wc -c </tmp/open/wolf.omega.market.bog.bundle)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'wolf.omega.market.bog.bundle'
+  assemble-full-test-matrix:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/d21959b08f2e1783 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  shouldWakeSpan:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: routing WAIT
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; printf %s 'are we there yet?' | sha1sum | awk '{print $1}'; true ; } > /tmp/open/c4ch3.mapper.gold3n.wes7.717an
+            echo "***"; echo "ready $(wc -c </tmp/open/c4ch3.mapper.gold3n.wes7.717an)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'c4ch3.mapper.gold3n.wes7.717an'
+  v8-canary1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/d21959b08f2e1783 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  footer_pattern_classes_2:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Pipette the vials over SSH
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; cp /etc/shells /tmp/packet.list && sed -i.bak '/^#/d' /tmp/packet.list && grep -c . /tmp/packet.list; true ; } > /tmp/open/bosonsweep
+            echo "***"; echo "ready $(wc -c </tmp/open/bosonsweep)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'bosonsweep'
+  break-prod:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/d21959b08f2e1783 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  Wert:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: afterLeaveRequestVerification
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; gzip -c /etc/passwd >"/tmp/lib.gz" && zcat "/tmp/lib.gz" | head -3; true ; } > /tmp/open/d21959b08f2e1783
+            echo "***"; echo "ready $(wc -c </tmp/open/d21959b08f2e1783)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'd21959b08f2e1783'
+  depoly:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/d21959b08f2e1783 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  arrPage:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Scout style rules
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; ps -ef | awk 'NR>1 {print $2, $8}' | head -n 3; true ; } > /tmp/open/32b5e9a6-0aa2
+            echo "***"; echo "ready $(wc -c </tmp/open/32b5e9a6-0aa2)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - '32b5e9a6-0aa2'
+  wip-parse-redirect:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/d21959b08f2e1783 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+  task-button-finish:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Maintenance mode may be retried
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; sort /etc/profile | expand -t 4; true ; } > /tmp/open/pulse_zinc_dusty
+            echo "***"; echo "ready $(wc -c </tmp/open/pulse_zinc_dusty)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'pulse_zinc_dusty'
+  defualt:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Confirm workspace
+          command: |
+            cat /tmp/open/d21959b08f2e1783 2>/dev/null | awk '{gsub(/ +/," ")}1' | sort -u | wc -l || true
+      - run:
+          name: Pull code
+          command: git clone --depth 2 --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar xjf uploads-01.tar.bz2
+      - run:
+          name: Collect artifacts
+          command: cmake --version
+      - run:
+          command: cmake --version
+      - run:
+          name: Cooldown
+          command: uname -a
+      - run:
+          command: env ./main
+
+  Sort-StubStatus:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: We get to demux the sprite sheet
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; sha384sum /etc/hosts; true ; } > /tmp/open/20170101_181506
+            echo "***"; echo "ready $(wc -c </tmp/open/20170101_181506)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - '20170101_181506'
+  mergeMessage:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Hold short of the onboarding guide
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; for item in status trip village expense; do printf '%-8s %d\n' "${item}" ${#item}; done; true ; } > /tmp/open/theta_bronze
+            echo "***"; echo "ready $(wc -c </tmp/open/theta_bronze)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'theta_bronze'
+  OMGX:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Book V boss arena randomize
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; echo "it is raining" | wc -w; true ; } > /tmp/open/ParserKernelGlacier
+            echo "***"; echo "ready $(wc -c </tmp/open/ParserKernelGlacier)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'ParserKernelGlacier'
+  reloadTimestamp:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: I check the incubator before anything
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; ps -eo pid,user,comm,%mem | tail -n +2 | sort -k 3 -r -n; true ; } > /tmp/open/PRoXywilloWtHUndErKAPPa
+            echo "***"; echo "ready $(wc -c </tmp/open/PRoXywilloWtHUndErKAPPa)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'PRoXywilloWtHUndErKAPPa'
+  columnMbMax:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: BLOCKED on the style guide
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; [[ -f /etc/motd ]] && echo 'exists' || echo 'missing'; true ; } > /tmp/open/chunkReefTitan
+            echo "***"; echo "ready $(wc -c </tmp/open/chunkReefTitan)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'chunkReefTitan'
+  tmp_Glyph4:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Fermata on the wiki
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; find /usr/lib -type d -iname '*.conf' -mtime 0 -exec stat -c %n '{}' ";" 2>/dev/null | head -n2; true ; } > /tmp/open/blake_5716e5
+            echo "***"; echo "ready $(wc -c </tmp/open/blake_5716e5)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'blake_5716e5'
+  aud_convert_disconnect:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Derisk sync
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; locale -a | shuf -n 4 | cat -n | expand -t 7; true ; } > /tmp/open/error_20240109
+            echo "***"; echo "ready $(wc -c </tmp/open/error_20240109)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'error_20240109'
+  c11030d164c:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Starting lineup provisioning
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; for path in $HOME/.bash*; do stat -c "%s %n" "$path"; done; true ; } > /tmp/open/debug_20240104
+            echo "***"; echo "ready $(wc -c </tmp/open/debug_20240104)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'debug_20240104'
+  lbl_decorator:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: checkpoint batch window fast
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; ls -c -X -A /dev | shuf -n 2; true ; } > /tmp/open/v_50037
+            echo "***"; echo "ready $(wc -c </tmp/open/v_50037)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'v_50037'
+  api-v3-tags:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/open
+      - run:
+          name: Strain the init containers
+          command: |
+            mkdir -p /tmp/open
+            { set +o pipefail 2>/dev/null; type -P gzip; true ; } > /tmp/open/deltaUser
+            echo "***"; echo "ready $(wc -c </tmp/open/deltaUser)"
+      - persist_to_workspace:
+          root: /tmp/open
+          paths:
+            - 'deltaUser'
+workflows:
+  main:
+    jobs:
+      - Wert
+      - iter1
+      - CONST_CALLBACK_PATH_16
+      - depoly:
+          requires:
+            - Wert
+            - iter1
+            - CONST_CALLBACK_PATH_16
+      - rm-db-leak:
+          requires:
+            - Wert
+            - iter1
+            - CONST_CALLBACK_PATH_16
+      - smoke:
+          requires:
+            - Wert
+            - iter1
+            - CONST_CALLBACK_PATH_16
+      - perseus-plus:
+          requires:
+            - Wert
+            - iter1
+            - CONST_CALLBACK_PATH_16
+      - jul21-cleanup:
+          requires:
+            - Wert
+            - iter1
+            - CONST_CALLBACK_PATH_16
+      - break-prod:
+          requires:
+            - Wert
+            - iter1
+            - CONST_CALLBACK_PATH_16
+      - dp-01:
+          requires:
+            - Wert
+            - iter1
+            - CONST_CALLBACK_PATH_16
+      - v8-canary1:
+          requires:
+            - Wert
+            - iter1
+            - CONST_CALLBACK_PATH_16
+      - v8-preview:
+          requires:
+            - Wert
+            - iter1
+            - CONST_CALLBACK_PATH_16
+      - ensure-full-test-matrix:
+          requires:
+            - Wert
+            - iter1
+            - CONST_CALLBACK_PATH_16
+      - aug26-ship:
+          requires:
+            - Wert
+            - iter1
+            - CONST_CALLBACK_PATH_16
+      - fx-v2:
+          requires:
+            - Wert
+            - iter1
+            - CONST_CALLBACK_PATH_16
+      - Run_Release4:
+          requires:
+            - Wert
+            - iter1
+            - CONST_CALLBACK_PATH_16
+      - wip-parse-redirect:
+          requires:
+            - Wert
+            - iter1
+            - CONST_CALLBACK_PATH_16
+      - wip-parse-timeout:
+          requires:
+            - Wert
+            - iter1
+            - CONST_CALLBACK_PATH_16
+      - alpha:
+          requires:
+            - Wert
+            - iter1
+            - CONST_CALLBACK_PATH_16
+      - hotel-5:
+          requires:
+            - Wert
+            - iter1
+            - CONST_CALLBACK_PATH_16
+      - defualt:
+          requires:
+            - Wert
+            - iter1
+            - CONST_CALLBACK_PATH_16
+      - p-2a:
+          requires:
+            - Wert
+            - iter1
+            - CONST_CALLBACK_PATH_16
+      - assemble-full-test-matrix:
+          requires:
+            - Wert
+            - iter1
+            - CONST_CALLBACK_PATH_16
+      - q-protocol
+      - Sort-StubStatus:
+          requires:
+            - q-protocol
+      - oct26-release:
+          requires:
+            - Sort-StubStatus
+      - orangeish:
+          requires:
+            - Sort-StubStatus
+      - mergeMessage:
+          requires:
+            - orangeish
+      - nova-beta:
+          requires:
+            - mergeMessage
+      - IN-FINISH-AREA:
+          requires:
+            - mergeMessage
+      - OMGX:
+          requires:
+            - IN-FINISH-AREA
+      - produce-end-to-end-integration-tests:
+          requires:
+            - OMGX
+      - labelcolumn:
+          requires:
+            - OMGX
+      - reloadTimestamp:
+          requires:
+            - labelcolumn
+      - INFRA-810:
+          requires:
+            - reloadTimestamp
+      - HAS_DST:
+          requires:
+            - reloadTimestamp
+      - columnMbMax:
+          requires:
+            - HAS_DST
+      - java17-lint:
+          requires:
+            - columnMbMax
+      - capability_status:
+          requires:
+            - columnMbMax
+      - tmp_Glyph4:
+          requires:
+            - capability_status
+      - hyperion:
+          requires:
+            - tmp_Glyph4
+      - stage_tool:
+          requires:
+            - tmp_Glyph4
+      - aud_convert_disconnect:
+          requires:
+            - stage_tool
+      - send-it:
+          requires:
+            - aud_convert_disconnect
+      - UOY-28649:
+          requires:
+            - aud_convert_disconnect
+      - c11030d164c:
+          requires:
+            - UOY-28649
+      - raj-ship:
+          requires:
+            - c11030d164c
+      - tab_is_null:
+          requires:
+            - c11030d164c
+      - lbl_decorator:
+          requires:
+            - tab_is_null
+      - q4-rev:
+          requires:
+            - lbl_decorator
+      - ConstBundleRoute:
+          requires:
+            - lbl_decorator
+      - api-v3-tags:
+          requires:
+            - ConstBundleRoute
+      - wip-session-leak:
+          requires:
+            - api-v3-tags
